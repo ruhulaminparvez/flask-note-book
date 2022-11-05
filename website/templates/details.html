@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block addlink %}
+<li class="nav-item">
+    <a class="nav-link active" href="/all-users" id="allusers">Show All Users</a>
+</li>
+{% endblock addlink %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<div class="container mt-5" style="width:800px">
+    <table class="table" style="width: 100%;border:0px">
+        <h1 align="center">User details</h1>
+        <br>
+        <tbody>
+            <tr style="font-size: 30px;">
+                <th scope="row">Email ID</th>
+                <td>{{user.email}}</td>
+            </tr>
+            <tr style="font-size: 30px;">
+                <th scope="row">First Name</th>
+                <td>{{user.first_name}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-inline mx-2 my-lg-0">
+                        <a href="/deleteAcc/{{user.id}}" class="btn btn-danger my-2 my-sm-0" style="font-size:20px"
+                            type="button" id="logout">Delete Account</a>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-inline mx-2 my-lg-0">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="font-size:20px">Change Password</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/changePass/{{user.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Password:</label>
+                        <input type="password" name="pass1" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Confirm-password:</label>
+                        <input type="password" name="pass2" class="form-control" id="recipient-name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
